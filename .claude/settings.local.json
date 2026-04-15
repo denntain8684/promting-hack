@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --yes)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/denntain/.nvm/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Read(//Users/denntain/.volta/**)",
+      "Read(//Users/denntain/Library/**)",
+      "Read(//Users/denntain/**)",
+      "Read(//usr/**)",
+      "Read(//opt/**)",
+      "Bash(npm --version)",
+      "Bash(npm install *)"
+    ]
+  }
+}

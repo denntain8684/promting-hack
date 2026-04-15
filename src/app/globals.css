@@ -1,26 +1,151 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-gold: #FFB800;
+  --color-gold-light: #FFD54F;
+  --color-gold-dark: #CC9300;
+  --color-dark: #2E3641;
+  --color-dark-deep: #1A1A1A;
+  --color-sage: #8DA69D;
+  --color-sage-light: #A8BFB7;
+  --color-sage-dark: #6B8A80;
+  --color-light-grey: #EBEEED;
+  --color-app-white: #FAFAFA;
+  --color-success: #4CAF50;
+  --color-error: #E53935;
+  --color-warning: #FFB800;
+  --color-info: #8DA69D;
+  --color-level-1: #8DA69D;
+  --color-level-2: #5B9BD5;
+  --color-level-3: #FFB800;
+  --color-level-4: #FF8C00;
+  --color-level-5: #E53935;
+
+  --font-sans: "DM Sans", sans-serif;
+  --font-sora: "Sora", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-slide-up: slide-up 0.4s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 10px #FFB800, 0 0 20px #FFB800; }
+  50%       { text-shadow: 0 0 20px #FFB800, 0 0 40px #FFD54F, 0 0 60px #FFB800; }
 }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confetti-fall {
+  0%   { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+:root {
+  --bg-primary: #1A1A1A;
+  --bg-secondary: #2E3641;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #1A1A1A;
+  color: #FAFAFA;
+  font-family: "DM Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
+
+/* Glass morphism card */
+.glass-card {
+  background: rgba(46, 54, 65, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 184, 0, 0.15);
+  border-radius: 12px;
+}
+.glass-card-hover {
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.glass-card-hover:hover {
+  border-color: rgba(255, 184, 0, 0.4);
+  box-shadow: 0 0 24px rgba(255, 184, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Gold glow text animation */
+.glow-gold { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* Buttons */
+.btn-gold {
+  background-color: #FFB800;
+  color: #1A1A1A;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 0.625rem 1.5rem;
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  border: none;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.btn-gold:hover { background-color: #FFD54F; box-shadow: 0 0 18px rgba(255, 184, 0, 0.45); }
+.btn-gold:active { transform: scale(0.97); }
+.btn-gold:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.btn-outline {
+  background: transparent;
+  color: #FFB800;
+  border: 1px solid #FFB800;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.625rem 1.5rem;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.btn-outline:hover { background-color: rgba(255, 184, 0, 0.1); box-shadow: 0 0 12px rgba(255, 184, 0, 0.2); }
+.btn-outline:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Prompt textarea */
+.prompt-textarea {
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #FAFAFA;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  resize: vertical;
+  transition: border-color 0.2s;
+  padding: 1rem;
+  width: 100%;
+  min-height: 220px;
+}
+.prompt-textarea:focus {
+  outline: none;
+  border-color: rgba(255, 184, 0, 0.5);
+  box-shadow: 0 0 0 2px rgba(255, 184, 0, 0.1);
+}
+.prompt-textarea::placeholder { color: rgba(255, 255, 255, 0.25); }
+
+/* Animation utilities */
+.animate-fade-in  { animation: fade-in 0.5s ease-out; }
+.animate-slide-up { animation: slide-up 0.4s ease-out; }

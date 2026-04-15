@@ -1,0 +1,15 @@
+services:
+  prompting-hack:
+    build: .
+    container_name: prompting-hack
+    restart: unless-stopped
+    ports:
+      - "3100:3000"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-sk-ant-PLACEHOLDER}
+    networks:
+      - denntainshome
+
+networks:
+  denntainshome:
+    external: true
