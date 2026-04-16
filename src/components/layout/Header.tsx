@@ -1,14 +1,36 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Zap } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Zap, Shield, LogOut } from "lucide-react";
 import { useGame } from "@/context/GameContext";
 import { getOverallProgress } from "@/lib/storage";
 
+interface SessionUser {
+  email: string;
+  role: "admin" | "user";
+}
+
 export function Header() {
   const { state } = useGame();
+  const router = useRouter();
   const progress = getOverallProgress(state);
+  const [user, setUser] = useState<SessionUser | null>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (data?.user) setUser(data.user);
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    router.push("/login");
+  };
 
   return (
     <header
@@ -65,6 +87,27 @@ export function Header() {
               {progress.completedLevels}/{progress.totalLevels}
             </span>
           </div>
+
+          {user?.role === "admin" && (
+            <Link
+              href="/admin"
+              className="hidden sm:flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors"
+            >
+              <Shield size={13} style={{ color: "#FFB800" }} />
+              Admin
+            </Link>
+          )}
+
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 text-xs text-white/30 hover:text-white/60 transition-colors"
+              title={user.email}
+            >
+              <LogOut size={13} />
+              <span className="hidden sm:inline">Abmelden</span>
+            </button>
+          )}
         </div>
       </div>
     </header>

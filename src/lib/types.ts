@@ -1,4 +1,43 @@
-export type ScenarioId = "schaden" | "vertrag" | "risiko" | "schulung" | "prozess";
+// ScenarioId is now a plain string to support dynamic categories
+export type ScenarioId = string;
+
+// ── Category types ────────────────────────────────────────────────────────────
+
+export type CategoryId =
+  | "allgemein"
+  | "unternehmensentwicklung"
+  | "schaden"
+  | "antrag"
+  | "komposit"
+  | "kranken"
+  | "leben"
+  | "marketing"
+  | "schulung";
+
+export type SubcategoryId =
+  | "projektmanagement"
+  | "prozessmanagement"
+  | "architekturmanagement"
+  | "pmo"
+  | "anforderungsmanagement"
+  | "strategie"
+  | "kommunikation-change";
+
+export interface Subcategory {
+  id: SubcategoryId;
+  title: string;
+  icon: string;
+}
+
+export interface Category {
+  id: CategoryId;
+  title: string;
+  icon: string;
+  description: string;
+  subcategories?: Subcategory[];
+}
+
+// ── Evaluation types ──────────────────────────────────────────────────────────
 
 export interface CriteriaResult {
   id: string;
@@ -18,24 +57,30 @@ export interface EvaluationResult {
   source: "rule-based" | "ai";
 }
 
+// ── Scenario / Level types ────────────────────────────────────────────────────
+
 export interface LevelData {
   level: number; // 1-5
   name: string;
   threshold: number; // 50-90
   focus: string;
-  task: string; // Aufgabenstellung
+  task: string;
   hints: string[]; // 4 hint tiers
 }
 
 export interface Scenario {
   id: ScenarioId;
+  categoryId: CategoryId;
+  subcategoryId?: SubcategoryId;
   title: string;
   shortDescription: string;
   context: string;
-  icon: string; // lucide icon name
+  icon: string;
   levels: LevelData[];
-  keywords: string[]; // scenario-specific keywords for rule-based evaluation
+  keywords: string[];
 }
+
+// ── Game state types ──────────────────────────────────────────────────────────
 
 export interface LevelProgress {
   completed: boolean;
@@ -45,7 +90,7 @@ export interface LevelProgress {
 
 export interface ScenarioProgress {
   scenarioId: ScenarioId;
-  currentLevel: number; // 1-5, current active level
+  currentLevel: number;
   levels: Record<number, LevelProgress>;
   completed: boolean;
 }

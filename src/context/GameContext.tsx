@@ -93,13 +93,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 export function GameProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(gameReducer, null, loadGameState);
 
-  // Hydrate from localStorage on mount
-  useEffect(() => {
-    const saved = loadGameState();
-    dispatch({ type: "LOAD_STATE", payload: saved });
-  }, []);
-
-  // Persist to localStorage on every change
+  // Persist to localStorage on every change (no duplicate hydration — useReducer already calls loadGameState)
   useEffect(() => {
     saveGameState(state);
   }, [state]);

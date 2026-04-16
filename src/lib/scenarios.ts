@@ -1,8 +1,15 @@
 import type { Scenario, ScenarioId } from "./types";
+import { SCENARIOS_ALLGEMEIN } from "./scenarios-allgemein";
+import { SCENARIOS_UE } from "./scenarios-ue";
+import { SCENARIOS_SCHADEN } from "./scenarios-schaden";
+import { SCENARIOS_ANTRAG } from "./scenarios-antrag";
+import { SCENARIOS_KOMPOSIT } from "./scenarios-komposit";
+import { SCENARIOS_KRANKEN, SCENARIOS_LEBEN, SCENARIOS_MARKETING, SCENARIOS_SCHULUNG } from "./scenarios-others";
 
-export const SCENARIOS: Record<ScenarioId, Scenario> = {
+const LEGACY_SCENARIOS: Record<ScenarioId, Scenario> = {
   schaden: {
     id: "schaden",
+    categoryId: "schaden",
     title: "Schadenmeldung optimieren",
     shortDescription:
       "Unterstütze den Innendienst bei der strukturierten Aufnahme eines Wasserschadens und der Kundenkommunikation.",
@@ -99,6 +106,7 @@ export const SCENARIOS: Record<ScenarioId, Scenario> = {
 
   vertrag: {
     id: "vertrag",
+    categoryId: "antrag",
     title: "Vertragsverlängerung argumentieren",
     shortDescription:
       "Erstelle überzeugende Argumente für einen Außendienst-Vermittler, um einen KMU-Kunden von der Vertragsverlängerung zu überzeugen.",
@@ -196,6 +204,7 @@ export const SCENARIOS: Record<ScenarioId, Scenario> = {
 
   risiko: {
     id: "risiko",
+    categoryId: "komposit",
     title: "Risikoanalyse erstellen",
     shortDescription:
       "Erstelle eine strukturierte Risikoanalyse für einen mittelständischen Maschinenbauunternehmer zur Technischen Versicherung.",
@@ -292,6 +301,7 @@ export const SCENARIOS: Record<ScenarioId, Scenario> = {
 
   schulung: {
     id: "schulung",
+    categoryId: "schulung",
     title: "Schulungsunterlagen erstellen",
     shortDescription:
       "Entwickle didaktisch aufbereitete Schulungsunterlagen für Auszubildende zu den Grundlagen der Kompositversicherung.",
@@ -390,6 +400,8 @@ export const SCENARIOS: Record<ScenarioId, Scenario> = {
 
   prozess: {
     id: "prozess",
+    categoryId: "unternehmensentwicklung",
+    subcategoryId: "prozessmanagement",
     title: "Prozessoptimierung dokumentieren",
     shortDescription:
       "Analysiere den Dunkelverarbeitungsprozess für Kfz-Glasschäden und entwickle einen Optimierungsplan zur Steigerung von 40% auf 75% automatischer Regulierung.",
@@ -486,10 +498,31 @@ export const SCENARIOS: Record<ScenarioId, Scenario> = {
   },
 };
 
+// All new scenarios as a flat array
+const NEW_SCENARIOS: Scenario[] = [
+  ...SCENARIOS_ALLGEMEIN,
+  ...SCENARIOS_UE,
+  ...SCENARIOS_SCHADEN,
+  ...SCENARIOS_ANTRAG,
+  ...SCENARIOS_KOMPOSIT,
+  ...SCENARIOS_KRANKEN,
+  ...SCENARIOS_LEBEN,
+  ...SCENARIOS_MARKETING,
+  ...SCENARIOS_SCHULUNG,
+];
+
+// Merge legacy + new into a single record
+export const SCENARIOS: Record<ScenarioId, Scenario> = {
+  ...LEGACY_SCENARIOS,
+  ...Object.fromEntries(NEW_SCENARIOS.map((s) => [s.id, s])),
+};
+
+// Legacy order first, then new scenarios
 export const SCENARIO_ORDER: ScenarioId[] = [
   "schaden",
   "vertrag",
   "risiko",
   "schulung",
   "prozess",
+  ...NEW_SCENARIOS.map((s) => s.id),
 ];

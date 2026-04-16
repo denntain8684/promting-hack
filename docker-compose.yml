@@ -8,8 +8,23 @@ services:
     environment:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-sk-ant-PLACEHOLDER}
       - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET:-prompting-hack-secret-change-in-production-32chars}
+      - APP_URL=${APP_URL:-https://hack.denntainshome.com}
+      - DATA_DIR=/data
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-mr.dennis.schmidt@gmail.com}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - SMTP_FROM=${SMTP_FROM:-Prompting Hack <noreply@mecklenburgische.de>}
+    volumes:
+      - prompting-hack-data:/data
     networks:
       - denntains-net
+
+volumes:
+  prompting-hack-data:
 
 networks:
   denntains-net:
