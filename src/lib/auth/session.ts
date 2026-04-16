@@ -2,8 +2,16 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
 const SESSION_COOKIE = "ph_session";
+
+const rawSecret = process.env.JWT_SECRET;
+if (!rawSecret) {
+  // In production this should be set. Log prominently so it's caught in startup logs.
+  console.warn(
+    "[auth] WARNING: JWT_SECRET env var is not set. Using insecure default. Set JWT_SECRET in production!"
+  );
+}
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET ?? "prompting-hack-secret-change-in-production-32chars"
+  rawSecret ?? "prompting-hack-secret-change-in-production-32chars"
 );
 const JWT_EXPIRY = "7d";
 

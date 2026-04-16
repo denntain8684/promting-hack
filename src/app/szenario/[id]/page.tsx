@@ -3,15 +3,12 @@
 import React from "react";
 import { notFound, useParams, useRouter } from "next/navigation";
 import {
-  Droplets,
-  FileText,
-  BarChart3,
-  GraduationCap,
-  GitBranch,
-  Lock,
-  CheckCircle2,
-  ChevronRight,
-  ArrowLeft,
+  Activity, AlertOctagon, ArrowLeft, Award, BarChart3, BookOpen, Briefcase,
+  Building, Building2, Car, CheckCircle2, ChevronRight, ClipboardCheck,
+  CloudRain, Database, DollarSign, Droplets, FileEdit, FileText, GitBranch,
+  GraduationCap, Heart, HelpCircle, Lock, Mail, Megaphone, Monitor,
+  Package, PiggyBank, RefreshCw, Scale, Search, Shield, TrendingUp,
+  UserCheck, Users, XCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
@@ -22,11 +19,12 @@ import { SCENARIOS } from "@/lib/scenarios";
 import type { ScenarioId } from "@/lib/types";
 
 const ICONS: Record<string, React.ElementType> = {
-  Droplets,
-  FileText,
-  BarChart3,
-  GraduationCap,
-  GitBranch,
+  Activity, AlertOctagon, Award, BarChart3, BookOpen, Briefcase,
+  Building, Building2, Car, ClipboardCheck, CloudRain,
+  Database, DollarSign, Droplets, FileEdit, FileText, GitBranch,
+  GraduationCap, Heart, HelpCircle, Lock, Mail, Megaphone, Monitor,
+  Package, PiggyBank, RefreshCw, Scale, Search, Shield, TrendingUp,
+  UserCheck, Users, XCircle,
 };
 
 const LEVEL_COLORS = ["#8DA69D", "#5B9BD5", "#FFB800", "#FF8C00", "#E53935"];

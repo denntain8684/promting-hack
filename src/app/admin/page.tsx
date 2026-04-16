@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Zap, Users, Plus, Trash2, Mail, Copy, Check, Shield, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -32,6 +32,7 @@ export default function AdminPage() {
   const [copiedPassword, setCopiedPassword] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [form, setForm] = useState<CreateFormData>({ email: "", name: "", role: "user" });
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const fetchUsers = useCallback(async () => {
     setLoading(true);
@@ -102,11 +103,18 @@ export default function AdminPage() {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    };
+  }, []);
+
   const copyPassword = async () => {
     if (!lastCreated) return;
     await navigator.clipboard.writeText(lastCreated.password);
     setCopiedPassword(true);
-    setTimeout(() => setCopiedPassword(false), 2000);
+    if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    copyTimeoutRef.current = setTimeout(() => setCopiedPassword(false), 2000);
   };
 
   const handleLogout = async () => {

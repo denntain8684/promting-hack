@@ -19,12 +19,14 @@ export function Header() {
   const [user, setUser] = useState<SessionUser | null>(null);
 
   useEffect(() => {
-    fetch("/api/auth/me")
+    const controller = new AbortController();
+    fetch("/api/auth/me", { signal: controller.signal })
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
         if (data?.user) setUser(data.user);
       })
       .catch(() => {});
+    return () => controller.abort();
   }, []);
 
   const handleLogout = async () => {

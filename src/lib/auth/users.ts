@@ -142,11 +142,24 @@ export async function seedAdminIfNeeded(): Promise<void> {
   store.users.push(admin);
   writeStore(store);
 
-  // Write initial credentials to a file for first-time access
-  const credFile = path.join(DATA_DIR, "admin-credentials.txt");
-  fs.writeFileSync(
-    credFile,
-    `Prompting Hack — Admin-Zugangsdaten (einmalig)\n\nE-Mail:   ${adminEmail}\nPasswort: ${adminPassword}\n\nBitte nach dem ersten Login sofort ändern!\n`,
-    "utf-8"
+  // Always log to stdout so credentials are never lost even if file write fails
+  console.log(
+    `\n========================================\n` +
+    `[auth] Admin-Konto angelegt (einmalig)\n` +
+    `  E-Mail:   ${adminEmail}\n` +
+    `  Passwort: ${adminPassword}\n` +
+    `========================================\n`
   );
+
+  // Also write to file for convenience
+  try {
+    const credFile = path.join(DATA_DIR, "admin-credentials.txt");
+    fs.writeFileSync(
+      credFile,
+      `Prompting Hack — Admin-Zugangsdaten (einmalig)\n\nE-Mail:   ${adminEmail}\nPasswort: ${adminPassword}\n\nBitte nach dem ersten Login sofort ändern!\n`,
+      "utf-8"
+    );
+  } catch {
+    // File write is best-effort; credentials are already in stdout
+  }
 }

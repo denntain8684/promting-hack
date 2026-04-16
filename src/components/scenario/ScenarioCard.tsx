@@ -3,23 +3,24 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Droplets,
-  FileText,
-  BarChart3,
-  GraduationCap,
-  GitBranch,
-  ChevronRight,
+  Activity, AlertOctagon, Award, BarChart3, BookOpen, Briefcase,
+  Building, Building2, Car, ChevronRight, ClipboardCheck, CloudRain,
+  Database, DollarSign, Droplets, FileEdit, FileText, GitBranch,
+  GraduationCap, Heart, HelpCircle, Lock, Mail, Megaphone, Monitor,
+  Package, PiggyBank, RefreshCw, Scale, Search, Shield, TrendingUp,
+  UserCheck, Users, XCircle,
 } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import type { Scenario, ScenarioProgress } from "@/lib/types";
 
 const ICONS: Record<string, React.ElementType> = {
-  Droplets,
-  FileText,
-  BarChart3,
-  GraduationCap,
-  GitBranch,
+  Activity, AlertOctagon, Award, BarChart3, BookOpen, Briefcase,
+  Building, Building2, Car, ClipboardCheck, CloudRain,
+  Database, DollarSign, Droplets, FileEdit, FileText, GitBranch,
+  GraduationCap, Heart, HelpCircle, Lock, Mail, Megaphone, Monitor,
+  Package, PiggyBank, RefreshCw, Scale, Search, Shield, TrendingUp,
+  UserCheck, Users, XCircle,
 };
 
 const LEVEL_COLORS = [
@@ -56,7 +57,7 @@ export function ScenarioCard({ scenario, progress, index }: ScenarioCardProps) {
   return (
     <Link href={`/szenario/${scenario.id}`} className="block group">
       <article
-        className="glass-card glass-card-hover p-6 h-full flex flex-col"
+        className="glass-card glass-card-hover p-6 h-full flex flex-col relative"
         style={{ animationDelay: `${index * 80}ms` }}
       >
         <div className="flex items-start justify-between mb-4">

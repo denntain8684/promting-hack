@@ -87,9 +87,9 @@ export default function ChampionPage() {
         </h2>
 
         <p className="text-lg text-white/60 mb-10 max-w-xl leading-relaxed">
-          Herzlichen Glückwunsch! Du hast alle 5 Szenarien und alle 25 Level
-          gemeistert. Du beherrschst professionelles Prompt Engineering im
-          Versicherungskontext.
+          Herzlichen Glückwunsch! Du hast alle {SCENARIO_ORDER.length} Szenarien
+          und alle {SCENARIO_ORDER.length * 5} Level gemeistert. Du beherrschst
+          professionelles Prompt Engineering im Versicherungskontext.
         </p>
 
         {/* Stars */}

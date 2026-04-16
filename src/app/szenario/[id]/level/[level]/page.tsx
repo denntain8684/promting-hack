@@ -27,7 +27,8 @@ export default function ChallengePage() {
   if (!scenario) notFound();
   if (levelNum < 1 || levelNum > 5) notFound();
 
-  const levelData = scenario.levels.find((l) => l.level === levelNum)!;
+  const levelData = scenario.levels.find((l) => l.level === levelNum);
+  if (!levelData) notFound();
   const progress = state.scenarios[scenarioId];
   const levelProgress = progress?.levels[levelNum];
   const attempts = levelProgress?.attempts ?? 0;
