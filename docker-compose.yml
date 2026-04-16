@@ -7,9 +7,11 @@ services:
       - "3100:3000"
     environment:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-sk-ant-PLACEHOLDER}
+      - NODE_ENV=production
     networks:
-      - denntainshome
+      - denntains-net
 
 networks:
-  denntainshome:
+  denntains-net:
     external: true
+    name: denntainshome_denntains-net

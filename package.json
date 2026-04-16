@@ -1,13 +1,12 @@
 {
-  "name": "prompting-hack-init",
+  "name": "prompting-hack",
   "version": "0.1.0",
   "private": true,
-  "name": "prompting-hack",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint src --ext .ts,.tsx",
+    "dev": "node node_modules/next/dist/bin/next dev",
+    "build": "node node_modules/next/dist/bin/next build",
+    "start": "node node_modules/next/dist/bin/next start",
+    "lint": "node node_modules/eslint/bin/eslint.js src --ext .ts,.tsx",
     "test": "vitest run"
   },
   "dependencies": {
